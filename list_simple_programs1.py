@@ -146,5 +146,41 @@ def find_second_min(my_list):
 print find_second_min([10, 20, 30, 40, 90])
 
 
+""" sum of all numbers with even index, and sum of all numbers with odd index """
+def sum_odd_even_index(my_list):
+    sum_odd=0
+    sum_even=0
+    for idx,element in enumerate(my_list):
+        if idx%2 == 0:
+            sum_even+=element
+        else:
+            sum_odd+=element
+    return sum_even, sum_odd
+
+print sum_odd_even_index([10,20,30])
 
 
+""" ZIP of two list """
+
+
+def zip_list(list1,list2):
+    list3 = []
+    if len(list1) == 0:
+        return list2
+    if len(list2) == 0:
+        return list1
+
+    for idx,element in enumerate(list1):
+        for jdx,value in enumerate(list2):
+
+            if idx == jdx:
+                list3.append(element)
+                list3.append(value)
+            if jdx < idx and jdx == len(list2)-1:
+                list3.append(element)
+            if idx == len(list1)-1 and jdx > idx:
+                list3.append(value)
+
+    return list3
+
+print zip_list([1,2,4],[1])
