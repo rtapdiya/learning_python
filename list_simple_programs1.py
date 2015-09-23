@@ -165,22 +165,81 @@ print sum_odd_even_index([10,20,30])
 
 def zip_list(list1,list2):
     list3 = []
-    if len(list1) == 0:
+
+    # A NEW WAY OF DOING THIS:
+    # same as if not list1: return list2.  WHich internally is evaluated as if not bool(list1)
+    if list1 is None or len(list1) == 0:
         return list2
     if len(list2) == 0:
         return list1
 
-    for idx,element in enumerate(list1):
-        for jdx,value in enumerate(list2):
 
-            if idx == jdx:
-                list3.append(element)
-                list3.append(value)
-            if jdx < idx and jdx == len(list2)-1:
-                list3.append(element)
-            if idx == len(list1)-1 and jdx > idx:
-                list3.append(value)
+    if len(list1)>len(list2):
+        size_of_bigger_list = len(list1)
+    else:
+        size_of_bigger_list=len(list2)
 
+    # A NEW WAY OF DOING THIS:
+    # size_of_bigger_list = len(list1) if len(list1) > len(list2) else len(list2)
+
+    counter = 0
+    while counter < size_of_bigger_list:
+        if counter < len(list1) and counter < len(list2):
+            list3.append(list1[counter])
+            list3.append(list2[counter])
+        if counter >= len(list1):
+            list3.append(list2[counter])
+        if counter >= len(list2):
+            list3.append(list1[counter])
+        counter += 1
     return list3
 
-print zip_list([1,2,4],[1])
+
+    # for idx,element in enumerate(list1):
+    #     for jdx,value in enumerate(list2):
+    #
+    #         if idx == jdx:
+    #             list3.append(element)
+    #             list3.append(value)
+    #         if jdx < idx and jdx == len(list2)-1:
+    #             list3.append(element)
+    #         if idx == len(list1)-1 and jdx > idx:
+    #             list3.append(value)
+    #
+    # return list3
+
+print zip_list([1,3,8],[4,6,7,8])
+
+
+def merge_list(l1,l2):
+    if not l1:
+        return l2
+    if not l2:
+        return l1
+    l1_index,l2_index = (0,)*3
+    l3 = []
+    while l1_index<len(l1) and l2_index<len(l2):
+        value1 = l1[l1_index]
+        value2 = l2[l2_index]
+        if value1 == value2:
+            l3.append(value1)
+            l3.append(value2)
+            l1_index += 1
+            l2_index += 1
+        elif value1 < value2:
+            l3.append(value1)
+            l1_index += 1
+        else:
+            l3.append(value2)
+            l2_index += 1
+    if l1_index < len(l1):
+        l3 += l1[l1_index:]
+    if l2_index < len(l2):
+        l3 += l2[l2_index:]
+    return l3
+
+print merge_list([100,101],[1,2,3])
+
+
+
+
